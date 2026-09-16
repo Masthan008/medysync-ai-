@@ -62,7 +62,7 @@ Welcome to the official User Manual and Operational Guide for **MediSync AI**, a
 
 ## 3. Admin Portal & System Management
 
-The Admin Portal offers executive oversight across patients, doctors, billing, analytics, and system settings.
+The Admin Portal offers executive oversight across patients, doctors, ward beds, billing, analytics, and system settings.
 
 ![Admin Executive Dashboard](docs/images/screenshot_admin_dashboard.png)
 
@@ -75,15 +75,20 @@ The Admin Portal offers executive oversight across patients, doctors, billing, a
    * Click **Doctors** in the sidebar. Add new physicians, set specialties, shift schedules, consultation fees, and upload digital signatures.
    ![Admin Doctors GUI](docs/images/screenshot_admin_doctors.png)
 
-3. **Billing Oversight & Invoices (`/dashboard/admin/billing`)**:
+3. **Hospital Ward & Bed Management (`/dashboard/admin/beds`)**:
+   * Track real-time ward bed availability across ICU, General, and Cardiology wards (`Available`, `Occupied`, `Maintenance`).
+   ![Admin Bed Management GUI](docs/images/screenshot_admin_beds.png)
+
+4. **Billing Oversight & Invoices (`/dashboard/admin/billing`)**:
    * Monitor itemized billing statements, track payment statuses (`Paid`, `Pending`, `Overdue`), generate new invoices, and record payments.
+   * Scanned invoices and receipts can be uploaded directly to record physical bills.
    ![Admin Billing GUI](docs/images/screenshot_admin_billing.png)
 
-4. **Analytics & Financial Intelligence (`/dashboard/admin/analytics`)**:
+5. **Analytics & Financial Intelligence (`/dashboard/admin/analytics`)**:
    * Review revenue growth trends, department patient distributions, bed occupancy, and waiting time metrics.
    ![Admin Analytics GUI](docs/images/screenshot_admin_analytics.png)
 
-5. **System Settings (`/dashboard/admin/settings`)**:
+6. **System Settings (`/dashboard/admin/settings`)**:
    * Configure hospital profile info, tax rates, security settings, backup logs, and role permissions.
    ![Admin Settings GUI](docs/images/screenshot_admin_settings.png)
 
@@ -91,7 +96,7 @@ The Admin Portal offers executive oversight across patients, doctors, billing, a
 
 ## 4. Doctor Portal & Clinical Consultations
 
-Designed for clinicians to manage daily consultations, access patient health records, and issue signed e-prescriptions.
+Designed for clinicians to manage daily consultations, access patient health records, launch virtual telemedicine calls, and issue signed e-prescriptions.
 
 ![Doctor Overview Dashboard](docs/images/screenshot_doctor_dashboard.png)
 
@@ -100,13 +105,17 @@ Designed for clinicians to manage daily consultations, access patient health rec
    * View scheduled appointments, update patient statuses (`Waiting`, `In Progress`, `Completed`), or add clinical notes.
    ![Doctor Appointments GUI](docs/images/screenshot_doctor_appointments.png)
 
-2. **Patient Medical Records (`/dashboard/doctor/patients`)**:
+2. **Telehealth Virtual Consultations (`/dashboard/doctor/telehealth`)**:
+   * Launch HD virtual telemedicine video calls with remote patients and chat in real-time during consultations.
+   ![Doctor Telehealth Consult GUI](docs/images/screenshot_doctor_telehealth.png)
+
+3. **Patient Medical Records (`/dashboard/doctor/patients`)**:
    * Access medical history, vital sign trends, past diagnoses, and allergy alerts before consultations.
    ![Doctor Patients EHR GUI](docs/images/screenshot_doctor_patients.png)
 
-3. **Issuing Electronic Prescriptions (`/dashboard/doctor/prescriptions`)**:
+4. **Issuing Electronic Prescriptions (`/dashboard/doctor/prescriptions`)**:
    * Click **New Prescription**. Select patient, enter drug names, dosages (e.g. 500mg), frequency (e.g. 1-0-1), duration, and clinical notes.
-   * Save prescription. The doctor's verified digital signature is automatically attached.
+   * Doctors can upload a physical scanned prescription image or draw a digital signature which is automatically stamped on generated e-prescriptions.
    ![Doctor Prescriptions GUI](docs/images/screenshot_doctor_prescriptions.png)
 
 ---
@@ -134,7 +143,7 @@ Optimized for front-desk receptionists to handle walk-in registrations, appointm
 
 ## 6. Patient Portal & Self-Service
 
-Empowers patients to manage appointments, view diagnostic summaries, and pay medical bills online.
+Empowers patients to manage appointments, view diagnostic summaries, log vital signs, and pay medical bills online.
 
 ![Patient Portal Dashboard](docs/images/screenshot_patient_dashboard.png)
 
@@ -143,8 +152,12 @@ Empowers patients to manage appointments, view diagnostic summaries, and pay med
    * View historical consultation summaries, lab results, and download signed e-prescriptions.
    ![Patient Medical History GUI](docs/images/screenshot_patient_history.png)
 
-2. **Viewing & Paying Invoices (`/dashboard/patient/bills`)**:
-   * Inspect detailed fee breakdowns and complete digital payments online.
+2. **Patient Vitals & Biometrics Tracker (`/dashboard/patient/vitals`)**:
+   * Record and track blood pressure, heart rate, body temperature, and SpO2 oxygen levels over time.
+   ![Patient Vitals Tracker GUI](docs/images/screenshot_patient_vitals.png)
+
+3. **Viewing & Paying Invoices (`/dashboard/patient/bills`)**:
+   * Inspect detailed fee breakdowns, upload payment receipt proof images, and complete digital payments online.
    ![Patient Bills GUI](docs/images/screenshot_patient_bills.png)
 
 ---
@@ -159,7 +172,7 @@ Connects doctors with pharmacists for real-time prescription verification and dr
 1. **Reviewing Incoming Prescriptions**:
    * View real-time incoming electronic prescriptions submitted by doctors.
 2. **Dispensing & Verification**:
-   * Inspect drug dosage and administration notes. Click **Mark as Dispensed** once medication has been verified.
+   * Inspect drug dosage, scanned prescription attachments, and administration notes. Click **Mark as Dispensed** once medication has been verified.
 
 ---
 
@@ -191,6 +204,9 @@ GET  /api/appointments         - Fetch scheduled consultations
 POST /api/appointments         - Schedule new appointment
 POST /api/prescriptions        - Issue e-prescription
 POST /api/invoices/:id/pay     - Process invoice payment
+GET  /api/beds                 - Fetch hospital bed status
+GET  /api/telehealth           - Retrieve telehealth sessions
+POST /api/vitals               - Log patient vitals
 ```
 
 ---
