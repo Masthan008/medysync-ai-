@@ -1,17 +1,17 @@
 # MediSync AI - Hospital Management System User Manual & Visual Guide
 
-Welcome to the official User Manual and Operational Guide for **MediSync AI**, an enterprise-grade, multi-role Hospital Management System (HMS). This guide provides step-by-step visual workflows, clear GUI navigation instructions, and screenshots for administrators, medical practitioners, reception staff, pharmacists, and patients.
+Welcome to the official User Manual and Operational Guide for **MediSync AI**, an enterprise-grade, multi-role Hospital Management System (HMS). This guide provides step-by-step visual workflows, clear GUI navigation instructions, and distinct role screenshots for administrators, doctors, receptionists, pharmacists, and patients.
 
 ---
 
 ## Table of Contents
 1. [System Overview & Architecture](#1-system-overview--architecture)
-2. [Getting Started & Authentication Workflow](#2-getting-started--authentication-workflow)
-3. [Admin Portal & Management Workflow](#3-admin-portal--management-workflow)
-4. [Doctor Portal & Clinical Consultation Workflow](#4-doctor-portal--clinical-consultation-workflow)
-5. [Receptionist Portal & Intake Workflow](#5-receptionist-portal--intake-workflow)
-6. [Patient Portal & Self-Service Workflow](#6-patient-portal--self-service-workflow)
-7. [Pharmacy Portal & Dispensing Workflow](#7-pharmacy-portal--dispensing-workflow)
+2. [Getting Started & Account Registration](#2-getting-started--account-registration)
+3. [Admin Portal & System Management](#3-admin-portal--system-management)
+4. [Doctor Portal & Clinical Consultations](#4-doctor-portal--clinical-consultations)
+5. [Receptionist Portal & Intake Desk](#5-receptionist-portal--intake-desk)
+6. [Patient Portal & Self-Service](#6-patient-portal--self-service)
+7. [Pharmacy Portal & Medication Dispensing](#7-pharmacy-portal--medication-dispensing)
 8. [Shared AI & Emergency Tools](#8-shared-ai--emergency-tools)
 9. [API Specifications & System Integration](#9-api-specifications--system-integration)
 10. [Troubleshooting & FAQ](#10-troubleshooting--faq)
@@ -32,118 +32,126 @@ Welcome to the official User Manual and Operational Guide for **MediSync AI**, a
 
 ---
 
-## 2. Getting Started & Authentication Workflow
+## 2. Getting Started & Account Registration
 
-### Step-by-Step Login Procedure
+### Creating a New Account
 1. Launch the web interface at `http://localhost:5173`.
-2. Click **Sign In** or navigate directly to `/login`.
-3. Select your role or enter credentials into the email and password fields.
-4. Click **Sign In to Portal** to access your role-specific dashboard.
+2. Click **Create account** or navigate to `/register`.
+3. Enter your full name, email address, password, and select your role (`Patient`, `Doctor`, `Receptionist`, `Admin`, or `Pharmacy`).
+4. Click **Create Account** to log in automatically.
+
+![Account Registration GUI](docs/images/screenshot_register.png)
+
+### Logging In
+1. Navigate to `/login`.
+2. Click any of the Quick Demo Login role badges or enter your credentials.
+3. Click **Sign In** to navigate to your role-specific dashboard.
 
 ![Login Page GUI](docs/images/screenshot_login.png)
 
-### Quick Demo Access Accounts
-* **Admin**: `admin@medisync.com` | Password: `password123`
-* **Doctor**: `doctor@medisync.com` | Password: `password123`
-* **Receptionist**: `receptionist@medisync.com` | Password: `password123`
-* **Patient**: `patient@medisync.com` | Password: `password123`
-* **Pharmacy**: `pharmacy@medisync.com` | Password: `password123`
+### Default Demo Credentials
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Admin** | `admin@medisync.ai` | `admin123` |
+| **Doctor** | `doctor@medisync.ai` | `doctor123` |
+| **Receptionist** | `receptionist@medisync.ai` | `recept123` |
+| **Patient** | `patient@medisync.ai` | `patient123` |
+| **Pharmacy** | `pharmacy@medisync.ai` | `pharmacy123` |
 
 ---
 
-## 3. Admin Portal & Management Workflow
+## 3. Admin Portal & System Management
 
-The Admin Portal offers high-level executive oversight and system administration.
+The Admin Portal offers executive oversight across patients, doctors, billing, analytics, and system settings.
 
-![Admin Dashboard Overview](docs/images/screenshot_admin_dashboard.png)
+![Admin Executive Dashboard](docs/images/screenshot_admin_dashboard.png)
 
 ### Step-by-Step GUI Workflows:
-1. **Monitoring Executive Metrics**:
-   * View live statistics across top widget cards: Total Patients, Active Doctors, Today's Appointments, Monthly Revenue, Pending Bills, and Bed Occupancy.
+1. **Patient Directory Management (`/dashboard/admin/patients`)**:
+   * Search patients by name, filter by department or status, or click **Add Patient** to onboard new patient records.
+   ![Admin Patients GUI](docs/images/screenshot_admin_patients.png)
 
-2. **Managing Patient Directory**:
-   * Click **Patients** in the sidebar navigation (`/dashboard/admin/patients`).
-   * Search patients by name, filter by status or department, or click **Add Patient** to onboard new patients.
-   ![Admin Patient Management GUI](docs/images/screenshot_admin_patients.png)
+2. **Doctor & Staff Onboarding (`/dashboard/admin/doctors`)**:
+   * Click **Doctors** in the sidebar. Add new physicians, set specialties, shift schedules, consultation fees, and upload digital signatures.
+   ![Admin Doctors GUI](docs/images/screenshot_admin_doctors.png)
 
-3. **Financial Billing & Invoice Oversight**:
-   * Navigate to **Billing** (`/dashboard/admin/billing`).
-   * Monitor itemized invoices, track payment status (`Paid`, `Pending`, `Overdue`), generate new invoices, and record payments.
+3. **Billing Oversight & Invoices (`/dashboard/admin/billing`)**:
+   * Monitor itemized billing statements, track payment statuses (`Paid`, `Pending`, `Overdue`), generate new invoices, and record payments.
    ![Admin Billing GUI](docs/images/screenshot_admin_billing.png)
 
-4. **Analytics & Performance Metrics**:
-   * Navigate to **Analytics** (`/dashboard/admin/analytics`).
-   * Review Recharts revenue growth trends, department patient allocations, and average patient waiting times.
+4. **Analytics & Financial Intelligence (`/dashboard/admin/analytics`)**:
+   * Review revenue growth trends, department patient distributions, bed occupancy, and waiting time metrics.
    ![Admin Analytics GUI](docs/images/screenshot_admin_analytics.png)
 
----
-
-## 4. Doctor Portal & Clinical Consultation Workflow
-
-Designed specifically for physicians to manage daily appointments and generate electronic health records.
-
-![Doctor Portal Overview](docs/images/screenshot_doctor_dashboard.png)
-
-### Step-by-Step GUI Workflows:
-1. **Managing Consultations**:
-   * View your appointment schedule. Update patient status from `Scheduled` to `In Progress` or `Completed`.
-2. **Reviewing Patient EHR History**:
-   * Click on a patient's record to review vital sign trends, past clinical notes, and allergy warnings.
-3. **Issuing Electronic Prescriptions**:
-   * Navigate to **Prescriptions** from the sidebar (`/dashboard/doctor/prescriptions`).
-   * Click **New Prescription**. Select patient, add medication names, dosage (e.g. 500mg), frequency (e.g. 1-0-1), and duration.
-   * Save prescription. Clinical notes and doctor digital signatures are automatically appended upon saving.
-
-![Doctor e-Prescriptions GUI](docs/images/screenshot_doctor_prescriptions.png)
+5. **System Settings (`/dashboard/admin/settings`)**:
+   * Configure hospital profile info, tax rates, security settings, backup logs, and role permissions.
+   ![Admin Settings GUI](docs/images/screenshot_admin_settings.png)
 
 ---
 
-## 5. Receptionist Portal & Intake Workflow
+## 4. Doctor Portal & Clinical Consultations
 
-Provides front-desk receptionists with quick walk-in registration and queue management capabilities.
+Designed for clinicians to manage daily consultations, access patient health records, and issue signed e-prescriptions.
 
-![Receptionist Portal Overview](docs/images/screenshot_receptionist_dashboard.png)
+![Doctor Overview Dashboard](docs/images/screenshot_doctor_dashboard.png)
 
 ### Step-by-Step GUI Workflows:
-1. **Walk-In Patient Registration**:
-   * Click **Register Patient** on the sidebar (`/dashboard/receptionist/register-patient`).
+1. **Managing Appointments (`/dashboard/doctor/appointments`)**:
+   * View scheduled appointments, update patient statuses (`Waiting`, `In Progress`, `Completed`), or add clinical notes.
+   ![Doctor Appointments GUI](docs/images/screenshot_doctor_appointments.png)
+
+2. **Patient Medical Records (`/dashboard/doctor/patients`)**:
+   * Access medical history, vital sign trends, past diagnoses, and allergy alerts before consultations.
+   ![Doctor Patients EHR GUI](docs/images/screenshot_doctor_patients.png)
+
+3. **Issuing Electronic Prescriptions (`/dashboard/doctor/prescriptions`)**:
+   * Click **New Prescription**. Select patient, enter drug names, dosages (e.g. 500mg), frequency (e.g. 1-0-1), duration, and clinical notes.
+   * Save prescription. The doctor's verified digital signature is automatically attached.
+   ![Doctor Prescriptions GUI](docs/images/screenshot_doctor_prescriptions.png)
+
+---
+
+## 5. Receptionist Portal & Intake Desk
+
+Optimized for front-desk receptionists to handle walk-in registrations, appointment scheduling, and consultation queues.
+
+![Receptionist Dashboard Overview](docs/images/screenshot_receptionist_dashboard.png)
+
+### Step-by-Step GUI Workflows:
+1. **Walk-In Patient Registration (`/dashboard/receptionist/register-patient`)**:
    * Fill in demographics: Name, Age, Phone, Email, Blood Group, Emergency Contact, and Insurance Policy info, then click **Register Patient**.
-   ![Receptionist Patient Registration GUI](docs/images/screenshot_receptionist_register.png)
+   ![Receptionist Register Patient GUI](docs/images/screenshot_receptionist_register.png)
 
-2. **Booking Appointments & Triage**:
-   * Navigate to **Book Appointment** (`/dashboard/receptionist/book`).
-   * Select patient, target physician, date/time slot, and set priority (`Normal`, `High`, `Emergency`).
+2. **Appointment Booking Desk (`/dashboard/receptionist/book`)**:
+   * Select patient, target physician, date/time slot, and set priority level (`Normal`, `High`, `Emergency`).
    ![Receptionist Appointment Booking GUI](docs/images/screenshot_receptionist_book.png)
 
-3. **Issuing Digital Tokens & Queue Management**:
-   * Navigate to **Queue Management** (`/dashboard/receptionist/queue`).
-   * Issue sequential consultation tokens and route patients dynamically to available department doctors.
+3. **Digital Token Queue Management (`/dashboard/receptionist/queue`)**:
+   * Issue sequential consultation tokens and route walk-in patients dynamically to waiting rooms.
    ![Queue Management GUI](docs/images/screenshot_receptionist_queue.png)
 
 ---
 
-## 6. Patient Portal & Self-Service Workflow
+## 6. Patient Portal & Self-Service
 
-Allows patients to manage appointments, view diagnostic summaries, and pay medical bills online.
+Empowers patients to manage appointments, view diagnostic summaries, and pay medical bills online.
 
 ![Patient Portal Dashboard](docs/images/screenshot_patient_dashboard.png)
 
 ### Step-by-Step GUI Workflows:
-1. **Self-Service Appointment Booking**:
-   * Click **Book Appointment**. Select preferred department, physician, date, and time slot.
-2. **Medical History & Prescription Vault**:
-   * Navigate to **Medical History** (`/dashboard/patient/history`). View consultation summaries, lab results, and download e-prescriptions.
-   ![Patient History Vault GUI](docs/images/screenshot_patient_history.png)
+1. **Medical History & Prescription Vault (`/dashboard/patient/history`)**:
+   * View historical consultation summaries, lab results, and download signed e-prescriptions.
+   ![Patient Medical History GUI](docs/images/screenshot_patient_history.png)
 
-3. **Viewing & Paying Invoices**:
-   * Navigate to **My Bills** (`/dashboard/patient/bills`). Inspect detailed fee breakdowns and process digital payments online.
+2. **Viewing & Paying Invoices (`/dashboard/patient/bills`)**:
+   * Inspect detailed fee breakdowns and complete digital payments online.
    ![Patient Bills GUI](docs/images/screenshot_patient_bills.png)
 
 ---
 
-## 7. Pharmacy Portal & Dispensing Workflow
+## 7. Pharmacy Portal & Medication Dispensing
 
-Streamlines medication dispensing directly connected to doctor electronic prescriptions.
+Connects doctors with pharmacists for real-time prescription verification and drug dispensing.
 
 ![Pharmacy Dashboard GUI](docs/images/screenshot_pharmacy_dashboard.png)
 
@@ -151,8 +159,7 @@ Streamlines medication dispensing directly connected to doctor electronic prescr
 1. **Reviewing Incoming Prescriptions**:
    * View real-time incoming electronic prescriptions submitted by doctors.
 2. **Dispensing & Verification**:
-   * Inspect drug dosage and administration notes.
-   * Click **Mark as Dispensed** once medication has been verified and handed to the patient.
+   * Inspect drug dosage and administration notes. Click **Mark as Dispensed** once medication has been verified.
 
 ---
 
