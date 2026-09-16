@@ -60,13 +60,21 @@ The Admin Portal offers high-level executive oversight and system administration
 ### Step-by-Step GUI Workflows:
 1. **Monitoring Executive Metrics**:
    * View live statistics across top widget cards: Total Patients, Active Doctors, Today's Appointments, Monthly Revenue, Pending Bills, and Bed Occupancy.
-2. **Managing Patient Profiles**:
-   * Click **Patients** in the sidebar navigation.
-   * Search patients by name, filter by department, or click **Add Patient** to onboard a new patient.
-3. **Staff Onboarding & Digital Signatures**:
-   * Navigate to **Doctors**. Click **Add Doctor** to define specialties, shift hours, consultation fees, and upload official digital signature files.
-4. **Financial Oversight & Billing**:
-   * Navigate to **Billing**. Monitor itemized invoices, filter by status (`Paid`, `Pending`, `Overdue`), and issue payment receipts.
+
+2. **Managing Patient Directory**:
+   * Click **Patients** in the sidebar navigation (`/dashboard/admin/patients`).
+   * Search patients by name, filter by status or department, or click **Add Patient** to onboard new patients.
+   ![Admin Patient Management GUI](docs/images/screenshot_admin_patients.png)
+
+3. **Financial Billing & Invoice Oversight**:
+   * Navigate to **Billing** (`/dashboard/admin/billing`).
+   * Monitor itemized invoices, track payment status (`Paid`, `Pending`, `Overdue`), generate new invoices, and record payments.
+   ![Admin Billing GUI](docs/images/screenshot_admin_billing.png)
+
+4. **Analytics & Performance Metrics**:
+   * Navigate to **Analytics** (`/dashboard/admin/analytics`).
+   * Review Recharts revenue growth trends, department patient allocations, and average patient waiting times.
+   ![Admin Analytics GUI](docs/images/screenshot_admin_analytics.png)
 
 ---
 
@@ -82,10 +90,9 @@ Designed specifically for physicians to manage daily appointments and generate e
 2. **Reviewing Patient EHR History**:
    * Click on a patient's record to review vital sign trends, past clinical notes, and allergy warnings.
 3. **Issuing Electronic Prescriptions**:
-   * Navigate to **Prescriptions** from the sidebar.
-   * Click **New Prescription**.
-   * Select patient, add medication names, dosage (e.g. 500mg), frequency (e.g. 1-0-1), and duration.
-   * Clinical notes and doctor digital signatures are automatically appended upon saving.
+   * Navigate to **Prescriptions** from the sidebar (`/dashboard/doctor/prescriptions`).
+   * Click **New Prescription**. Select patient, add medication names, dosage (e.g. 500mg), frequency (e.g. 1-0-1), and duration.
+   * Save prescription. Clinical notes and doctor digital signatures are automatically appended upon saving.
 
 ![Doctor e-Prescriptions GUI](docs/images/screenshot_doctor_prescriptions.png)
 
@@ -98,16 +105,20 @@ Provides front-desk receptionists with quick walk-in registration and queue mana
 ![Receptionist Portal Overview](docs/images/screenshot_receptionist_dashboard.png)
 
 ### Step-by-Step GUI Workflows:
-1. **Walk-In Patient Intake**:
-   * Click **Register Patient** on the sidebar.
-   * Fill in name, age, contact info, blood type, emergency contact, and insurance details, then submit.
-2. **Issuing Digital Tokens & Managing Queue**:
-   * Navigate to **Queue Management**.
-   * Issue sequential consultation tokens and route patients dynamically to available department doctors.
-3. **Emergency Priority Override**:
-   * For critical cases, set appointment priority to `Emergency` to route the patient directly to the top of the queue.
+1. **Walk-In Patient Registration**:
+   * Click **Register Patient** on the sidebar (`/dashboard/receptionist/register-patient`).
+   * Fill in demographics: Name, Age, Phone, Email, Blood Group, Emergency Contact, and Insurance Policy info, then click **Register Patient**.
+   ![Receptionist Patient Registration GUI](docs/images/screenshot_receptionist_register.png)
 
-![Queue Management GUI](docs/images/screenshot_receptionist_queue.png)
+2. **Booking Appointments & Triage**:
+   * Navigate to **Book Appointment** (`/dashboard/receptionist/book`).
+   * Select patient, target physician, date/time slot, and set priority (`Normal`, `High`, `Emergency`).
+   ![Receptionist Appointment Booking GUI](docs/images/screenshot_receptionist_book.png)
+
+3. **Issuing Digital Tokens & Queue Management**:
+   * Navigate to **Queue Management** (`/dashboard/receptionist/queue`).
+   * Issue sequential consultation tokens and route patients dynamically to available department doctors.
+   ![Queue Management GUI](docs/images/screenshot_receptionist_queue.png)
 
 ---
 
@@ -118,12 +129,15 @@ Allows patients to manage appointments, view diagnostic summaries, and pay medic
 ![Patient Portal Dashboard](docs/images/screenshot_patient_dashboard.png)
 
 ### Step-by-Step GUI Workflows:
-1. **Booking Appointments Online**:
+1. **Self-Service Appointment Booking**:
    * Click **Book Appointment**. Select preferred department, physician, date, and time slot.
-2. **Downloading e-Prescriptions**:
-   * Access your personal medical record history and download signed PDF e-prescriptions.
+2. **Medical History & Prescription Vault**:
+   * Navigate to **Medical History** (`/dashboard/patient/history`). View consultation summaries, lab results, and download e-prescriptions.
+   ![Patient History Vault GUI](docs/images/screenshot_patient_history.png)
+
 3. **Viewing & Paying Invoices**:
-   * Navigate to **My Bills** to inspect itemized charges and initiate digital payment.
+   * Navigate to **My Bills** (`/dashboard/patient/bills`). Inspect detailed fee breakdowns and process digital payments online.
+   ![Patient Bills GUI](docs/images/screenshot_patient_bills.png)
 
 ---
 
