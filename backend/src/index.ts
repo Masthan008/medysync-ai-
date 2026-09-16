@@ -14,45 +14,34 @@ import appointmentRoutes from './routes/appointments'
 import prescriptionRoutes from './routes/prescriptions'
 import invoiceRoutes from './routes/invoices'
 import notificationRoutes from './routes/notifications'
+import bedRoutes from './routes/beds'
+import telehealthRoutes from './routes/telehealth'
+import vitalsRoutes from './routes/vitals'
 
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
-// 1. Gzip Compression for all static assets and API payloads
 app.use(compression())
 
-// 2. Custom Security Headers Middleware
 app.use((req, res, next) => {
-  // Content Security Policy (CSP)
   res.setHeader(
     'Content-Security-Policy',
     "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' *; frame-ancestors 'none';"
   )
-  
-  // X-Frame-Options (prevents clickjacking)
   res.setHeader('X-Frame-Options', 'DENY')
-  
-  // X-Content-Type-Options (prevents MIME sniffing)
   res.setHeader('X-Content-Type-Options', 'nosniff')
-  
-  // Referrer-Policy
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
-  
-  // Permissions-Policy
   res.setHeader('Permissions-Policy', 'geolocation=(), camera=(), microphone=(), payment=()')
-  
-  // HSTS (Strict-Transport-Security) for enforcing HTTPS on production
   if (process.env.NODE_ENV === 'production') {
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
   }
-  
   next()
 })
 
 app.use(cors())
-app.use(express.json({ limit: '10mb' })) // Enable larger payloads for digital signature uploads
+app.use(express.json({ limit: '10mb' }))
 
 // Mounting API Routes
 app.use('/api/auth', authRoutes)
@@ -62,17 +51,17 @@ app.use('/api/appointments', appointmentRoutes)
 app.use('/api/prescriptions', prescriptionRoutes)
 app.use('/api/invoices', invoiceRoutes)
 app.use('/api/notifications', notificationRoutes)
+app.use('/api/beds', bedRoutes)
+app.use('/api/telehealth', telehealthRoutes)
+app.use('/api/vitals', vitalsRoutes)
 
-// Serves Static Frontend in Production
 const staticPath = path.join(__dirname, '../../dist')
 app.use(express.static(staticPath))
 
-// Wildcard SPA route
 app.get('*', (req, res) => {
   res.sendFile(path.join(staticPath, 'index.html'))
 })
 
-// Boot server after ensuring PostgreSQL connection
 const bootstrap = async () => {
   try {
     await connectWithRetry()

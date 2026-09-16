@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Outlet, NavLink, useNavigate } from 'react-router-dom'
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  LayoutDashboard, Users, UserRound, Calendar, CreditCard,
+  LayoutDashboard, Users, Calendar, CreditCard,
   BarChart3, Settings, LogOut, Bell, Search, Menu, X,
-  Stethoscope, Bot, QrCode, ClipboardList, UserCheck,
+  Stethoscope, Bot, QrCode, ClipboardList,
   Activity, ChevronRight, Pill, ListChecks, UserPlus,
+  BedDouble, Video, Heart
 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { useDataStore } from '../store/dataStore'
@@ -16,6 +17,7 @@ const navByRole = {
     { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard/admin' },
     { label: 'Patients', icon: Users, path: '/dashboard/admin/patients' },
     { label: 'Doctors', icon: Stethoscope, path: '/dashboard/admin/doctors' },
+    { label: 'Bed Management', icon: BedDouble, path: '/dashboard/admin/beds' },
     { label: 'Appointments', icon: Calendar, path: '/dashboard/appointments' },
     { label: 'Billing', icon: CreditCard, path: '/dashboard/admin/billing' },
     { label: 'Analytics', icon: BarChart3, path: '/dashboard/admin/analytics' },
@@ -24,6 +26,7 @@ const navByRole = {
   doctor: [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard/doctor' },
     { label: 'Appointments', icon: Calendar, path: '/dashboard/doctor/appointments' },
+    { label: 'Telehealth Consult', icon: Video, path: '/dashboard/doctor/telehealth' },
     { label: 'My Patients', icon: Users, path: '/dashboard/doctor/patients' },
     { label: 'Prescriptions', icon: Pill, path: '/dashboard/doctor/prescriptions' },
   ],
@@ -37,6 +40,7 @@ const navByRole = {
   patient: [
     { label: 'My Dashboard', icon: LayoutDashboard, path: '/dashboard/patient' },
     { label: 'Medical History', icon: Activity, path: '/dashboard/patient/history' },
+    { label: 'Vitals Tracker', icon: Heart, path: '/dashboard/patient/vitals' },
     { label: 'My Bills', icon: CreditCard, path: '/dashboard/patient/bills' },
     { label: 'Appointments', icon: Calendar, path: '/dashboard/appointments' },
   ],
@@ -71,6 +75,7 @@ export default function DashboardLayout() {
   const { user, logout, checkAuth } = useAuthStore()
   const { notifications, fetchData, markNotificationsRead } = useDataStore()
   const navigate = useNavigate()
+  const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 1024)
   const [notifOpen, setNotifOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -113,12 +118,12 @@ export default function DashboardLayout() {
           >
             {/* Logo */}
             <div className="flex items-center gap-3 px-6 py-5 border-b border-white/10">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-medical-cyan to-blue-400 flex items-center justify-center shadow-glow-cyan">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-400 flex items-center justify-center">
                 <Stethoscope size={18} className="text-white" />
               </div>
               <div>
                 <h1 className="text-white font-bold text-lg leading-none">MediSync</h1>
-                <span className="text-medical-cyan text-xs font-medium">AI Platform</span>
+                <span className="text-cyan-300 text-xs font-medium">AI Platform</span>
               </div>
             </div>
 
@@ -156,9 +161,9 @@ export default function DashboardLayout() {
                 >
                   {({ isActive }) => (
                     <>
-                      <item.icon size={18} className={isActive ? 'text-medical-cyan' : 'text-slate-400 group-hover:text-white'} />
+                      <item.icon size={18} className={isActive ? 'text-cyan-300' : 'text-slate-400 group-hover:text-white'} />
                       <span>{item.label}</span>
-                      {isActive && <ChevronRight size={14} className="ml-auto text-medical-cyan" />}
+                      {isActive && <ChevronRight size={14} className="ml-auto text-cyan-300" />}
                     </>
                   )}
                 </NavLink>
@@ -181,9 +186,9 @@ export default function DashboardLayout() {
                   >
                     {({ isActive }) => (
                       <>
-                        <item.icon size={18} className={isActive ? 'text-medical-cyan' : 'text-slate-400 group-hover:text-white'} />
+                        <item.icon size={18} className={isActive ? 'text-cyan-300' : 'text-slate-400 group-hover:text-white'} />
                         <span>{item.label}</span>
-                        {isActive && <ChevronRight size={14} className="ml-auto text-medical-cyan" />}
+                        {isActive && <ChevronRight size={14} className="ml-auto text-cyan-300" />}
                       </>
                     )}
                   </NavLink>
@@ -225,7 +230,7 @@ export default function DashboardLayout() {
                 placeholder="Search patients, doctors, appointments..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-medical-cyan/30 focus:border-medical-cyan transition-all"
+                className="w-full pl-9 pr-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500 transition-all"
               />
             </div>
           </div>
@@ -256,13 +261,13 @@ export default function DashboardLayout() {
                   >
                     <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
                       <h3 className="font-semibold text-gray-900">Notifications</h3>
-                      <span onClick={() => markNotificationsRead()} className="text-xs text-medical-cyan font-medium cursor-pointer hover:underline">Mark all read</span>
+                      <span onClick={() => markNotificationsRead()} className="text-xs text-blue-600 font-medium cursor-pointer hover:underline">Mark all read</span>
                     </div>
                     <div className="max-h-72 overflow-y-auto">
                       {notifications.map(n => (
                         <div key={n.id} className={`px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer ${!n.read ? 'bg-blue-50/50' : ''}`}>
                           <div className="flex items-start gap-3">
-                            <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${!n.read ? 'bg-medical-cyan' : 'bg-gray-300'}`} />
+                            <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${!n.read ? 'bg-blue-500' : 'bg-gray-300'}`} />
                             <div>
                               <p className="text-sm text-gray-700">{n.message}</p>
                               <p className="text-xs text-gray-400 mt-0.5">{n.time}</p>

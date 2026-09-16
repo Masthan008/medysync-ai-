@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs'
 export const seedDatabase = async () => {
   const client = await pool.connect()
   try {
-    // Check if users already exist
     const { rows } = await client.query('SELECT COUNT(*) FROM users')
     const count = parseInt(rows[0].count)
     if (count > 0) {
@@ -12,28 +11,26 @@ export const seedDatabase = async () => {
       return
     }
 
-    console.log('Database is empty. Running clean seeder...')
+    console.log('Database is empty. Initializing system setup records...')
 
     await client.query('BEGIN')
 
     // 1. Seed Departments
     const depts = [
-      { id: 'DEP01', name: 'Cardiology', head: null, icon: '❤️', color: 'red' },
-      { id: 'DEP02', name: 'Endocrinology', head: null, icon: '🔬', color: 'blue' },
-      { id: 'DEP03', name: 'Orthopedics', head: null, icon: '🦴', color: 'orange' },
-      { id: 'DEP04', name: 'Pulmonology', head: null, icon: '🫁', color: 'sky' },
-      { id: 'DEP05', name: 'Neurology', head: null, icon: '🧠', color: 'purple' },
-      { id: 'DEP06', name: 'Nephrology', head: null, icon: '🫘', color: 'teal' }
+      { id: 'DEP01', name: 'Cardiology', icon: '❤️', color: 'red' },
+      { id: 'DEP02', name: 'Endocrinology', icon: '🔬', color: 'blue' },
+      { id: 'DEP03', name: 'Orthopedics', icon: '🦴', color: 'orange' },
+      { id: 'DEP04', name: 'Neurology', icon: '🧠', color: 'purple' }
     ]
 
     for (const d of depts) {
       await client.query(
-        'INSERT INTO departments (id, name, head_doctor_id, icon, color) VALUES ($1, $2, $3, $4, $5)',
-        [d.id, d.name, d.head, d.icon, d.color]
+        'INSERT INTO departments (id, name, icon, color) VALUES ($1, $2, $3, $4)',
+        [d.id, d.name, d.icon, d.color]
       )
     }
 
-    // 2. Seed default users
+    // 2. Seed Default Accounts
     const passwordHashes = {
       admin: bcrypt.hashSync('admin123', 10),
       doctor: bcrypt.hashSync('doctor123', 10),
@@ -57,23 +54,22 @@ export const seedDatabase = async () => {
       )
     }
 
-    // 3. Seed default doctor details
+    // 3. Seed Doctor profile
     await client.query(
       'INSERT INTO doctors (id, specialty, department_id, experience, consultation_fee, qualifications) VALUES ($1, $2, $3, $4, $5, $6)',
       ['D001', 'Cardiology', 'DEP01', '15 years', 800, 'MBBS, MD (Cardiology)']
     )
 
-    // Set D001 as Cardiology head doctor
     await client.query("UPDATE departments SET head_doctor_id = 'D001' WHERE id = 'DEP01'")
 
-    // 4. Seed default patient details
+    // 4. Seed Patient profile
     await client.query(
       'INSERT INTO patients (id, age, gender, blood_group, condition, address, allergies, insurance, status, doctor, department, last_visit, appointment_count) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
-      ['P001', 34, 'Male', 'O+', 'Hypertension', 'Mumbai, Maharashtra', 'Penicillin', 'Star Health', 'Active', 'Dr. Priya Mehta', 'Cardiology', '2026-05-10', 5]
+      ['P001', 34, 'Male', 'O+', 'Hypertension', 'Mumbai, Maharashtra', 'Penicillin', 'Star Health', 'Active', 'Dr. Priya Mehta', 'Cardiology', '2026-05-10', 1]
     )
 
     await client.query('COMMIT')
-    console.log('Clean seeder ran successfully. Database initialized with default user accounts.')
+    console.log('Seeder completed. Clean production setup initialized.')
   } catch (err) {
     await client.query('ROLLBACK')
     console.error('Failed to seed database:', err)

@@ -9,36 +9,39 @@ const LoginPage = lazy(() => import('./pages/public/LoginPage'))
 const RegisterPage = lazy(() => import('./pages/public/RegisterPage'))
 const NotFoundPage = lazy(() => import('./pages/public/NotFoundPage'))
 
-// Dashboard layout (statically imported for instant shell rendering)
+// Dashboard layout
 import DashboardLayout from './layouts/DashboardLayout'
 
-// Admin pages (lazy loaded)
+// Admin pages
 const AdminDashboard = lazy(() => import('./pages/dashboard/admin/AdminDashboard'))
 const PatientsPage = lazy(() => import('./pages/dashboard/admin/PatientsPage'))
 const DoctorsPage = lazy(() => import('./pages/dashboard/admin/DoctorsPage'))
 const BillingPage = lazy(() => import('./pages/dashboard/admin/BillingPage'))
 const AnalyticsPage = lazy(() => import('./pages/dashboard/admin/AnalyticsPage'))
 const SettingsPage = lazy(() => import('./pages/dashboard/admin/SettingsPage'))
+const BedManagement = lazy(() => import('./pages/dashboard/admin/BedManagement'))
 
-// Doctor pages (lazy loaded)
+// Doctor pages
 const DoctorDashboard = lazy(() => import('./pages/dashboard/doctor/DoctorDashboard'))
 const DoctorAppointments = lazy(() => import('./pages/dashboard/doctor/DoctorAppointments'))
 const DoctorPatients = lazy(() => import('./pages/dashboard/doctor/DoctorPatients'))
 const DoctorPrescriptions = lazy(() => import('./pages/dashboard/doctor/DoctorPrescriptions'))
+const TelehealthConsult = lazy(() => import('./pages/dashboard/doctor/TelehealthConsult'))
 
-// Receptionist pages (lazy loaded)
+// Receptionist pages
 const ReceptionistDashboard = lazy(() => import('./pages/dashboard/receptionist/ReceptionistDashboard'))
 const QueueManagement = lazy(() => import('./pages/dashboard/receptionist/QueueManagement'))
 const AppointmentBooking = lazy(() => import('./pages/dashboard/receptionist/AppointmentBooking'))
 const RegisterPatient = lazy(() => import('./pages/dashboard/receptionist/RegisterPatient'))
 
-// Patient pages (lazy loaded)
+// Patient pages
 const PatientDashboard = lazy(() => import('./pages/dashboard/patient/PatientDashboard'))
 const PatientHistory = lazy(() => import('./pages/dashboard/patient/PatientHistory'))
 const PatientBills = lazy(() => import('./pages/dashboard/patient/PatientBills'))
+const VitalsTracker = lazy(() => import('./pages/dashboard/patient/VitalsTracker'))
 const PharmacyDashboard = lazy(() => import('./pages/dashboard/pharmacy/PharmacyDashboard'))
 
-// Shared pages (lazy loaded)
+// Shared pages
 const AppointmentsPage = lazy(() => import('./pages/dashboard/shared/AppointmentsPage'))
 const AIAssistant = lazy(() => import('./pages/dashboard/shared/AIAssistant'))
 const EmergencyWallet = lazy(() => import('./pages/dashboard/shared/EmergencyWallet'))
@@ -102,6 +105,7 @@ export default function App() {
             <Route path="admin/doctors" element={<RoleRoute allowedRoles={['admin']}><DoctorsPage /></RoleRoute>} />
             <Route path="admin/billing" element={<RoleRoute allowedRoles={['admin']}><BillingPage /></RoleRoute>} />
             <Route path="admin/analytics" element={<RoleRoute allowedRoles={['admin']}><AnalyticsPage /></RoleRoute>} />
+            <Route path="admin/beds" element={<RoleRoute allowedRoles={['admin']}><BedManagement /></RoleRoute>} />
             <Route path="admin/settings" element={<RoleRoute allowedRoles={['admin']}><SettingsPage /></RoleRoute>} />
 
             {/* Doctor */}
@@ -109,6 +113,7 @@ export default function App() {
             <Route path="doctor/appointments" element={<RoleRoute allowedRoles={['doctor']}><DoctorAppointments /></RoleRoute>} />
             <Route path="doctor/patients" element={<RoleRoute allowedRoles={['doctor']}><DoctorPatients /></RoleRoute>} />
             <Route path="doctor/prescriptions" element={<RoleRoute allowedRoles={['doctor']}><DoctorPrescriptions /></RoleRoute>} />
+            <Route path="doctor/telehealth" element={<RoleRoute allowedRoles={['doctor']}><TelehealthConsult /></RoleRoute>} />
 
             {/* Receptionist */}
             <Route path="receptionist" element={<RoleRoute allowedRoles={['receptionist']}><ReceptionistDashboard /></RoleRoute>} />
@@ -120,6 +125,7 @@ export default function App() {
             <Route path="patient" element={<RoleRoute allowedRoles={['patient']}><PatientDashboard /></RoleRoute>} />
             <Route path="patient/history" element={<RoleRoute allowedRoles={['patient']}><PatientHistory /></RoleRoute>} />
             <Route path="patient/bills" element={<RoleRoute allowedRoles={['patient']}><PatientBills /></RoleRoute>} />
+            <Route path="patient/vitals" element={<RoleRoute allowedRoles={['patient']}><VitalsTracker /></RoleRoute>} />
 
             {/* Pharmacy */}
             <Route path="pharmacy" element={<RoleRoute allowedRoles={['pharmacy']}><PharmacyDashboard /></RoleRoute>} />

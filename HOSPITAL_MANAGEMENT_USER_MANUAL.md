@@ -1,224 +1,222 @@
-# MediSync AI - Hospital Management System User Manual & Guide
+# MediSync AI - Hospital Management System User Manual & Visual Guide
 
-Welcome to the official User Manual and Operational Guide for **MediSync AI**, an enterprise-grade, multi-role Hospital Management System (HMS). This comprehensive guide is designed for system administrators, healthcare providers (doctors, nurses, pharmacists), reception staff, and patients to efficiently navigate and utilize the software.
+Welcome to the official User Manual and Operational Guide for **MediSync AI**, an enterprise-grade, multi-role Hospital Management System (HMS). This guide provides step-by-step visual workflows, clear GUI navigation instructions, and distinct role screenshots for administrators, doctors, receptionists, pharmacists, and patients.
 
 ---
 
 ## Table of Contents
 1. [System Overview & Architecture](#1-system-overview--architecture)
-2. [Getting Started & Installation](#2-getting-started--installation)
-3. [User Roles & Authentication](#3-user-roles--authentication)
-4. [Admin Portal Guide](#4-admin-portal-guide)
-5. [Doctor Portal Guide](#5-doctor-portal-guide)
-6. [Receptionist Portal Guide](#6-receptionist-portal-guide)
-7. [Patient Portal Guide](#7-patient-portal-guide)
-8. [Pharmacy Portal Guide](#8-pharmacy-portal-guide)
-9. [Shared & AI-Powered Features](#9-shared--ai-powered-features)
-10. [API & Data Specifications](#10-api--data-specifications)
-11. [Troubleshooting & FAQ](#11-troubleshooting--faq)
+2. [Getting Started & Account Registration](#2-getting-started--account-registration)
+3. [Admin Portal & System Management](#3-admin-portal--system-management)
+4. [Doctor Portal & Clinical Consultations](#4-doctor-portal--clinical-consultations)
+5. [Receptionist Portal & Intake Desk](#5-receptionist-portal--intake-desk)
+6. [Patient Portal & Self-Service](#6-patient-portal--self-service)
+7. [Pharmacy Portal & Medication Dispensing](#7-pharmacy-portal--medication-dispensing)
+8. [Shared AI & Emergency Tools](#8-shared-ai--emergency-tools)
+9. [API Specifications & System Integration](#9-api-specifications--system-integration)
+10. [Troubleshooting & FAQ](#10-troubleshooting--faq)
 
 ---
 
 ## 1. System Overview & Architecture
 
-**MediSync AI** is a modernized, full-stack Hospital Management System designed to streamline clinical workflows, automate administrative processes, and improve patient care outcomes through AI-driven insights.
+**MediSync AI** modernizes hospital operations by combining real-time multi-role workflows with AI clinical decision support tools.
 
-### Core Architecture
-* **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Lucide React icons, Framer Motion, Recharts.
-* **State Management**: Zustand with persistent storage sync.
-* **Backend API**: Node.js, Express, TypeScript, JWT Authentication.
-* **Database**: PostgreSQL (Production) / SQLite (Development fallback).
-* **Containerization**: Docker & Docker Compose support.
+![MediSync Landing Page](docs/images/screenshot_landing.png)
 
----
-
-## 2. Getting Started & Installation
-
-### Prerequisites
-* **Node.js**: v18.0.0 or higher
-* **npm**: v9.0.0 or higher
-* **Docker & Docker Compose** (Optional, for containerized execution)
-
-### Local Environment Setup
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/your-org/medisync-ai.git
-   cd medisync-ai
-   ```
-
-2. **Frontend Installation & Launch**
-   ```bash
-   npm install
-   npm run dev
-   ```
-   The web portal will be accessible at `http://localhost:5173`.
-
-3. **Backend Service Setup**
-   ```bash
-   cd backend
-   npm install
-   npm run dev
-   ```
-   The backend API runs at `http://localhost:5000`.
-
-4. **Docker Deployment (Alternative)**
-   ```bash
-   docker-compose up --build -d
-   ```
+### Core Stack
+* **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Lucide React, Framer Motion, Recharts.
+* **State Management**: Zustand with persistent client-server state sync.
+* **Backend API**: Node.js, Express, TypeScript, JWT Bearer Token Security.
+* **Database**: PostgreSQL (Production) / SQLite (Development Fallback).
 
 ---
 
-## 3. User Roles & Authentication
+## 2. Getting Started & Account Registration
 
-MediSync AI implements Role-Based Access Control (RBAC) to ensure security and privacy compliance across all operational departments.
+### Creating a New Account
+1. Launch the web interface at `http://localhost:5173`.
+2. Click **Create account** or navigate to `/register`.
+3. Enter your full name, email address, password, and select your role (`Patient`, `Doctor`, `Receptionist`, `Admin`, or `Pharmacy`).
+4. Click **Create Account** to log in automatically.
 
-### Supported User Roles
-| Role | Primary Responsibilities | Access Scope |
+![Account Registration GUI](docs/images/screenshot_register.png)
+
+### Logging In
+1. Navigate to `/login`.
+2. Click any of the Quick Demo Login role badges or enter your credentials.
+3. Click **Sign In** to navigate to your role-specific dashboard.
+
+![Login Page GUI](docs/images/screenshot_login.png)
+
+### Default Demo Credentials
+| Role | Email | Password |
 | :--- | :--- | :--- |
-| **Admin** | System management, staff onboarding, financial reporting, analytics | Full System Access |
-| **Doctor** | Consultations, electronic prescriptions, patient medical records | Clinical & Patient Records |
-| **Receptionist**| Patient intake, queue management, appointment desk | Desk & Queue Operations |
-| **Patient** | Appointment booking, medical history, bill payment | Personal Records Only |
-| **Pharmacy** | Order fulfillment, prescription validation, dispensing | Pharmacy Queue |
-
-### Default Credentials (Demo / Testing Environment)
-* **Admin**: `admin@medisync.com` | Password: `password123`
-* **Doctor**: `doctor@medisync.com` | Password: `password123`
-* **Receptionist**: `receptionist@medisync.com` | Password: `password123`
-* **Patient**: `patient@medisync.com` | Password: `password123`
-* **Pharmacy**: `pharmacy@medisync.com` | Password: `password123`
+| **Admin** | `admin@medisync.ai` | `admin123` |
+| **Doctor** | `doctor@medisync.ai` | `doctor123` |
+| **Receptionist** | `receptionist@medisync.ai` | `recept123` |
+| **Patient** | `patient@medisync.ai` | `patient123` |
+| **Pharmacy** | `pharmacy@medisync.ai` | `pharmacy123` |
 
 ---
 
-## 4. Admin Portal Guide
+## 3. Admin Portal & System Management
 
-The Admin Portal serves as the central command center for hospital operations.
+The Admin Portal offers executive oversight across patients, doctors, ward beds, billing, analytics, and system settings.
 
-### Key Capabilities
-1. **Executive Dashboard**:
-   * Live operational widgets displaying total registered patients, active medical staff, daily appointments, monthly revenue, pending bills, emergency cases, and bed occupancy rates.
-2. **Patient Directory Management**:
-   * Register, edit, search, filter, or deactivate patient profiles.
-   * View full patient demographic details, emergency contacts, insurance policies, and assigned primary physicians.
-3. **Doctor & Staff Administration**:
-   * Add new medical staff, define department assignments (e.g., Cardiology, Neurology, Pediatrics, Orthopedics).
-   * Configure consultation fees, weekly shift schedules, and upload digital signatures for official document signing.
-4. **Billing & Revenue Management**:
-   * Generate itemized invoices, apply service charges, track payment statuses (`Paid`, `Pending`, `Partial`, `Overdue`).
-5. **Analytics & Business Intelligence**:
-   * Recharts-driven visual analytics for monthly revenue growth, department-wise patient distribution, and average waiting time metrics.
-6. **System Settings**:
-   * Hospital profile settings, tax configurations, security settings, backup management, and audit logs.
+![Admin Executive Dashboard](docs/images/screenshot_admin_dashboard.png)
 
----
+### Step-by-Step GUI Workflows:
+1. **Patient Directory Management (`/dashboard/admin/patients`)**:
+   * Search patients by name, filter by department or status, or click **Add Patient** to onboard new patient records.
+   ![Admin Patients GUI](docs/images/screenshot_admin_patients.png)
 
-## 5. Doctor Portal Guide
+2. **Doctor & Staff Onboarding (`/dashboard/admin/doctors`)**:
+   * Click **Doctors** in the sidebar. Add new physicians, set specialties, shift schedules, consultation fees, and upload digital signatures.
+   ![Admin Doctors GUI](docs/images/screenshot_admin_doctors.png)
 
-Designed specifically for clinicians to manage daily consultations efficiently.
+3. **Hospital Ward & Bed Management (`/dashboard/admin/beds`)**:
+   * Track real-time ward bed availability across ICU, General, and Cardiology wards (`Available`, `Occupied`, `Maintenance`).
+   ![Admin Bed Management GUI](docs/images/screenshot_admin_beds.png)
 
-### Workflow & Features
-1. **Doctor Dashboard**:
-   * View daily consultation schedules, pending appointments, emergency alerts, and recent patient visits.
-2. **Appointment Desk**:
-   * Transition appointment status through lifecycle stages: `Scheduled` ➔ `Waiting` ➔ `In Progress` ➔ `Confirmed` / `Completed`.
-3. **Electronic Health Records (EHR)**:
-   * Access medical history, vital signs, allergy logs, chronic conditions, and diagnostic reports before or during consultations.
-4. **Electronic Prescriptions (e-Prescribing)**:
-   * Select medications, dosage instructions, frequency (e.g., 1-0-1), and treatment duration.
-   * Attach clinical notes and automatically apply the doctor's digital signature.
+4. **Billing Oversight & Invoices (`/dashboard/admin/billing`)**:
+   * Monitor itemized billing statements, track payment statuses (`Paid`, `Pending`, `Overdue`), generate new invoices, and record payments.
+   * Scanned invoices and receipts can be uploaded directly to record physical bills.
+   ![Admin Billing GUI](docs/images/screenshot_admin_billing.png)
+
+5. **Analytics & Financial Intelligence (`/dashboard/admin/analytics`)**:
+   * Review revenue growth trends, department patient distributions, bed occupancy, and waiting time metrics.
+   ![Admin Analytics GUI](docs/images/screenshot_admin_analytics.png)
+
+6. **System Settings (`/dashboard/admin/settings`)**:
+   * Configure hospital profile info, tax rates, security settings, backup logs, and role permissions.
+   ![Admin Settings GUI](docs/images/screenshot_admin_settings.png)
 
 ---
 
-## 6. Receptionist Portal Guide
+## 4. Doctor Portal & Clinical Consultations
 
-Focused on front-desk patient intake, queue optimization, and triage scheduling.
+Designed for clinicians to manage daily consultations, access patient health records, launch virtual telemedicine calls, and issue signed e-prescriptions.
 
-### Operational Features
-1. **Patient Registration**:
-   * Quick-register new walk-in patients with vital info: Name, Age, Gender, Phone, Email, Blood Group, Address, Emergency Contact, and Insurance details.
-2. **Queue & Token Management**:
-   * Issue digital tokens for walk-in consultations.
-   * Track live queue status across departments to minimize patient wait times.
-3. **Appointment Booking Desk**:
-   * Schedule new appointments for doctors based on real-time availability slots and priority levels (`Normal`, `High`, `Emergency`).
+![Doctor Overview Dashboard](docs/images/screenshot_doctor_dashboard.png)
 
----
+### Step-by-Step GUI Workflows:
+1. **Managing Appointments (`/dashboard/doctor/appointments`)**:
+   * View scheduled appointments, update patient statuses (`Waiting`, `In Progress`, `Completed`), or add clinical notes.
+   ![Doctor Appointments GUI](docs/images/screenshot_doctor_appointments.png)
 
-## 7. Patient Portal Guide
+2. **Telehealth Virtual Consultations (`/dashboard/doctor/telehealth`)**:
+   * Launch HD virtual telemedicine video calls with remote patients and chat in real-time during consultations.
+   ![Doctor Telehealth Consult GUI](docs/images/screenshot_doctor_telehealth.png)
 
-Empowers patients with self-service capabilities and transparent healthcare access.
+3. **Patient Medical Records (`/dashboard/doctor/patients`)**:
+   * Access medical history, vital sign trends, past diagnoses, and allergy alerts before consultations.
+   ![Doctor Patients EHR GUI](docs/images/screenshot_doctor_patients.png)
 
-### Patient Capabilities
-1. **Personal Dashboard**:
-   * View upcoming appointments, active prescriptions, and recent medical invoices.
-2. **Self-Service Appointment Booking**:
-   * Choose department, select preferred physician, pick date/time slot, and provide visit reasons.
-3. **Billing & Payments**:
-   * Review detailed invoice breakdowns and pay outstanding bills online or upload payment receipts.
-4. **Medical Records & Prescriptions**:
-   * Download digital PDF prescriptions and view complete historical consultation records.
+4. **Issuing Electronic Prescriptions (`/dashboard/doctor/prescriptions`)**:
+   * Click **New Prescription**. Select patient, enter drug names, dosages (e.g. 500mg), frequency (e.g. 1-0-1), duration, and clinical notes.
+   * Doctors can upload a physical scanned prescription image or draw a digital signature which is automatically stamped on generated e-prescriptions.
+   ![Doctor Prescriptions GUI](docs/images/screenshot_doctor_prescriptions.png)
 
 ---
 
-## 8. Pharmacy Portal Guide
+## 5. Receptionist Portal & Intake Desk
 
-Facilitates efficient medication dispensing and prescription management.
+Optimized for front-desk receptionists to handle walk-in registrations, appointment scheduling, and consultation queues.
 
-### Key Workflows
-1. **Prescription Processing Queue**:
-   * Real-time list of electronic prescriptions submitted by doctors.
-2. **Verification & Dispensing**:
-   * Review prescribed drug names, dosages, and administration notes.
-   * Mark orders as `Filled`, `Dispensed`, or `Completed`.
+![Receptionist Dashboard Overview](docs/images/screenshot_receptionist_dashboard.png)
+
+### Step-by-Step GUI Workflows:
+1. **Walk-In Patient Registration (`/dashboard/receptionist/register-patient`)**:
+   * Fill in demographics: Name, Age, Phone, Email, Blood Group, Emergency Contact, and Insurance Policy info, then click **Register Patient**.
+   ![Receptionist Register Patient GUI](docs/images/screenshot_receptionist_register.png)
+
+2. **Appointment Booking Desk (`/dashboard/receptionist/book`)**:
+   * Select patient, target physician, date/time slot, and set priority level (`Normal`, `High`, `Emergency`).
+   ![Receptionist Appointment Booking GUI](docs/images/screenshot_receptionist_book.png)
+
+3. **Digital Token Queue Management (`/dashboard/receptionist/queue`)**:
+   * Issue sequential consultation tokens and route walk-in patients dynamically to waiting rooms.
+   ![Queue Management GUI](docs/images/screenshot_receptionist_queue.png)
 
 ---
 
-## 9. Shared & AI-Powered Features
+## 6. Patient Portal & Self-Service
+
+Empowers patients to manage appointments, view diagnostic summaries, log vital signs, and pay medical bills online.
+
+![Patient Portal Dashboard](docs/images/screenshot_patient_dashboard.png)
+
+### Step-by-Step GUI Workflows:
+1. **Medical History & Prescription Vault (`/dashboard/patient/history`)**:
+   * View historical consultation summaries, lab results, and download signed e-prescriptions.
+   ![Patient Medical History GUI](docs/images/screenshot_patient_history.png)
+
+2. **Patient Vitals & Biometrics Tracker (`/dashboard/patient/vitals`)**:
+   * Record and track blood pressure, heart rate, body temperature, and SpO2 oxygen levels over time.
+   ![Patient Vitals Tracker GUI](docs/images/screenshot_patient_vitals.png)
+
+3. **Viewing & Paying Invoices (`/dashboard/patient/bills`)**:
+   * Inspect detailed fee breakdowns, upload payment receipt proof images, and complete digital payments online.
+   ![Patient Bills GUI](docs/images/screenshot_patient_bills.png)
+
+---
+
+## 7. Pharmacy Portal & Medication Dispensing
+
+Connects doctors with pharmacists for real-time prescription verification and drug dispensing.
+
+![Pharmacy Dashboard GUI](docs/images/screenshot_pharmacy_dashboard.png)
+
+### Step-by-Step GUI Workflows:
+1. **Reviewing Incoming Prescriptions**:
+   * View real-time incoming electronic prescriptions submitted by doctors.
+2. **Dispensing & Verification**:
+   * Inspect drug dosage, scanned prescription attachments, and administration notes. Click **Mark as Dispensed** once medication has been verified.
+
+---
+
+## 8. Shared AI & Emergency Tools
 
 ### MediSync AI Clinical Assistant
-* **Symptom Triage**: Enter patient symptoms to receive AI-assisted differential diagnosis suggestions and risk stratification.
-* **Clinical Note Generator**: Converts concise doctor notes into formatted medical summaries.
+* Access via sidebar: **AI Assistant**.
+* Enter patient symptoms to receive intelligent differential diagnosis suggestions and automated medical summary formatting.
+
+![AI Assistant GUI](docs/images/screenshot_ai_assistant.png)
 
 ### Emergency Medical Wallet
-* **Instant Triage Access**: Provides immediate access to critical emergency data: blood group, severe allergies, chronic conditions, emergency contact numbers, and digital ID card generation.
+* Access via sidebar: **Emergency Wallet**.
+* Instant access to crucial emergency health metrics: blood group, severe allergies, active conditions, emergency contact numbers, and digital ID badge.
 
-### System Notifications
-* **Real-Time Alerts**: Automated notifications for emergency admissions, appointment cancellations, pending bill reminders, and prescription fills.
-
----
-
-## 10. API & Data Specifications
-
-MediSync AI backend provides structured JSON REST endpoints protected by JWT bearer token authorization.
-
-### Key API Endpoints
-* `POST /api/auth/login` - User authentication & JWT issuance.
-* `GET /api/patients` - Retrieve registered patients list.
-* `POST /api/patients` - Register a new patient.
-* `GET /api/doctors` - Retrieve doctors directory.
-* `GET /api/appointments` - Fetch system appointments.
-* `POST /api/appointments` - Schedule a new appointment.
-* `PUT /api/appointments/:id/status` - Update appointment state.
-* `GET /api/prescriptions` - Fetch electronic prescriptions.
-* `POST /api/prescriptions` - Generate new e-prescription.
-* `GET /api/invoices` - Fetch billing & invoice records.
-* `POST /api/invoices/:id/pay` - Process invoice payment.
+![Emergency Medical Wallet GUI](docs/images/screenshot_emergency_wallet.png)
 
 ---
 
-## 11. Troubleshooting & FAQ
+## 9. API Specifications & System Integration
 
-### Frequently Asked Questions
+Protected REST endpoints utilize standard JWT Bearer Authorization headers:
 
-**Q1: How do I change my account password?**
-* Navigate to **Settings** in your respective portal, click on **Security**, and follow the password update prompt.
-
-**Q2: What happens if an emergency case arrives at the front desk?**
-* Receptionists can immediately set the appointment priority to `Emergency`. This automatically places the patient at the top of the doctor's queue and triggers a system-wide emergency alert notification.
-
-**Q3: Can doctors attach digital signatures to prescriptions?**
-* Yes. Doctors can upload their official digital signature image in their profile settings. The system automatically stamps this signature on generated e-prescriptions.
+```
+GET  /api/patients             - Fetch registered patients
+POST /api/patients             - Register new patient
+GET  /api/doctors              - Fetch doctors directory
+GET  /api/appointments         - Fetch scheduled consultations
+POST /api/appointments         - Schedule new appointment
+POST /api/prescriptions        - Issue e-prescription
+POST /api/invoices/:id/pay     - Process invoice payment
+GET  /api/beds                 - Fetch hospital bed status
+GET  /api/telehealth           - Retrieve telehealth sessions
+POST /api/vitals               - Log patient vitals
+```
 
 ---
-*MediSync AI User Manual - Version 1.0.0 | Enterprise Healthcare Solutions*
+
+## 10. Troubleshooting & FAQ
+
+* **Q: What if the backend server is unreachable?**
+  * Ensure Node.js API server is running on port 5000 (`npm run dev` inside `/backend`). The frontend fallback automatically syncs state locally if backend connection drops.
+* **Q: How are emergency alerts broadcasted?**
+  * When an emergency appointment is created, real-time alert banners pop up on both the Admin and attending Doctor portals.
+
+---
+*MediSync AI User Manual & Operational Visual Guide - Version 1.0.0*
